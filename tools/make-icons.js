@@ -8,7 +8,7 @@ const preview = process.argv[2];
 function headRaster() {
   const r = S.build("stand", 0, false, true);
   let top = r.h, bottom = 0, left = r.w, right = 0;
-  for (let y = 0; y < 21; y++) {
+  for (let y = 0; y < 29; y++) {
     for (let x = 0; x < r.w; x++) {
       if (r.px[y * r.w + x]) {
         top = Math.min(top, y); bottom = Math.max(bottom, y);

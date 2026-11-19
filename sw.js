@@ -1,10 +1,14 @@
-var CACHE = "koala-v1";
+var CACHE = "koala-v2";
 var FILES = [
   "./",
   "index.html",
   "sprite.js",
   "messages.js",
+  "audio.js",
   "game.js",
+  "photos/ljuljaska.png",
+  "photos/kacketi.png",
+  "photos/stolica.png",
   "manifest.webmanifest",
   "apple-touch-icon.png",
   "icon-192.png",

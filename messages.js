@@ -236,4 +236,59 @@ window.KoalaMessages = {
     "Kasno je... idi na spavanje, molim te.",
     "Šta radiš budna? Idi na spavanje!",
   ],
+  Hungry: [
+    "Malo sam gladan... imaš li list eukaliptusa?",
+    "Stomak mi kruli. Nahrani me, molim te!",
+    "Eukaliptus? Bilo koji? Molim?",
+  ],
+  Missed: [
+    "Nedostajala si mi! Gde si bila?",
+    "Konačno! Čekao sam te ceo dan.",
+    "Vratila si se! Ovo je najlepši trenutak danas.",
+  ],
+  Gift: [
+    "Imam poklon za tebe! Dodirni kutiju.",
+    "Psst... nešto te čeka u kutiji.",
+    "Današnji poklon je stigao! Otvori ga.",
+  ],
+  Letter: [
+    "Stiglo ti je pismo od Doruka! Dodirni me da ti ga pročitam.",
+    "Pošta! Doruk ti je nešto napisao. Dodirni me!",
+  ],
+  Bunny: [
+    "Zečiću! Došla si!",
+    "Vidi ko je došao! Najslađi zec na svetu.",
+    "Zagrljaj za Zečića!",
+    "Zečić i koala. Najbolji tim.",
+  ],
+  BunnyTap: [
+    "To si ti, Zečiću! Izgledaš preslatko.",
+    "Moj omiljeni zec!",
+    "Hop hop! Volim te!",
+  ],
+  Dress: [
+    "Kako izgledam?",
+    "Lep sam, zar ne?",
+    "Moda koala!",
+    "Ovo mi baš stoji.",
+  ],
+  Photo: [
+    "Sećaš se ovoga?",
+    "Ovo mi je omiljena slika.",
+    "Hoću još ovakvih uspomena sa tobom.",
+  ],
+  Found: [
+    "Našla si me!",
+    "Kako si me našla? Ti si genije!",
+    "Uhvaćen sam! Hahaha.",
+  ],
+  NotHere: [
+    "Nije tu!",
+    "Hladno, hladno...",
+    "Pokušaj ponovo!",
+  ],
+  Level: [
+    "Rastem! Hvala ti što brineš o meni.",
+    "Novi nivo! Ja sam sad velika koala.",
+  ],
 };

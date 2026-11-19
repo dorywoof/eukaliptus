@@ -30,9 +30,12 @@
     --paper: #fff7fa;
     --paper-shade: #f6d3df;
     --pink: #ff6f9a;
+    --gold: #ffd34d;
     --sat: env(safe-area-inset-top);
+    --edge: 0 -3px 0 0 var(--ink), 0 3px 0 0 var(--ink), -3px 0 0 0 var(--ink), 3px 0 0 0 var(--ink);
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  [hidden] { display: none !important; }
   html, body {
     margin: 0;
     height: 100%;
@@ -44,7 +47,10 @@
     -webkit-touch-callout: none;
     font-family: "Pixel", ui-monospace, monospace;
     font-weight: 500;
+    color: var(--ink);
   }
+  button { font: inherit; color: inherit; touch-action: manipulation; }
+  .pix { image-rendering: pixelated; image-rendering: crisp-edges; }
   #world {
     position: fixed;
     left: 0;
@@ -59,18 +65,17 @@
     top: 0;
     max-width: min(260px, calc(100vw - 20px));
     padding: 9px 13px 10px;
-    color: var(--ink);
     background: var(--paper);
     font-size: 16px;
     line-height: 1.25;
-    box-shadow:
-      0 -3px 0 0 var(--ink), 0 3px 0 0 var(--ink), -3px 0 0 0 var(--ink), 3px 0 0 0 var(--ink),
-      inset 0 -3px 0 0 var(--paper-shade);
+    box-shadow: var(--edge), inset 0 -3px 0 0 var(--paper-shade);
     opacity: 0;
     pointer-events: none;
     transform-origin: 50% 100%;
     will-change: transform;
   }
+  #bubble.letter { background: #fff3c9; max-width: min(300px, calc(100vw - 20px)); }
+  #bubble-from { display: block; color: var(--pink); font-size: 13px; margin-bottom: 4px; }
   #bubble.show { opacity: 1; animation: pop 0.22s steps(4) both; }
   #bubble::after {
     content: "";
@@ -90,44 +95,204 @@
   }
   #bubble-text::after { content: "\2665"; color: var(--pink); margin-left: 6px; }
   @keyframes pop { from { opacity: 0; scale: 0.6; } to { opacity: 1; scale: 1; } }
+
+  #hud {
+    position: fixed;
+    left: 12px;
+    top: calc(env(safe-area-inset-top) + 10px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 9px;
+    background: var(--paper);
+    box-shadow: var(--edge);
+    font-size: 13px;
+  }
+  .stat { display: flex; align-items: center; gap: 4px; }
+  .stat img { width: 14px; height: 13px; object-fit: contain; image-rendering: pixelated; }
+  .stat i { display: block; width: 34px; height: 8px; background: #e9d9e1; box-shadow: 0 0 0 2px var(--ink); }
+  .stat i b { display: block; height: 100%; background: #7cc35c; }
+  #love-bar { background: var(--pink); }
+  .stat i.low b { animation: blink 0.8s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0.2; } }
+
+  #banner {
+    position: fixed;
+    left: 50%;
+    top: calc(env(safe-area-inset-top) + 50px);
+    transform: translateX(-50%);
+    white-space: nowrap;
+    padding: 7px 14px;
+    background: var(--pink);
+    color: #fff;
+    font-size: 16px;
+    box-shadow: var(--edge), inset 0 -3px 0 0 #e0507c;
+    animation: wiggle 2s steps(2) infinite;
+  }
+  @keyframes wiggle { 50% { transform: translateX(-50%) translateY(-2px); } }
+
   #bar {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
     display: flex;
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
-    padding: 0 12px calc(14px + env(safe-area-inset-bottom));
+    padding: 0 10px calc(14px + env(safe-area-inset-bottom));
     pointer-events: none;
   }
   #bar button {
+    position: relative;
     pointer-events: auto;
     flex: 1 1 0;
-    max-width: 96px;
+    min-width: 0;
+    max-width: 84px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    padding: 9px 2px 7px;
+    padding: 9px 0 7px;
     border: 0;
     border-radius: 0;
-    color: var(--ink);
     background: var(--paper);
-    font: inherit;
-    font-size: 13px;
-    box-shadow:
-      0 -3px 0 0 var(--ink), 0 3px 0 0 var(--ink), -3px 0 0 0 var(--ink), 3px 0 0 0 var(--ink),
-      inset 0 -4px 0 0 var(--paper-shade), 0 7px 0 0 rgba(30, 20, 50, 0.25);
-    touch-action: manipulation;
+    font-size: 12px;
+    white-space: nowrap;
+    box-shadow: var(--edge), inset 0 -4px 0 0 var(--paper-shade), 0 7px 0 0 rgba(30, 20, 50, 0.25);
   }
-  #bar button:active {
+  #bar button:active, .pbtn:active, .cell:active {
     transform: translateY(3px);
-    box-shadow:
-      0 -3px 0 0 var(--ink), 0 3px 0 0 var(--ink), -3px 0 0 0 var(--ink), 3px 0 0 0 var(--ink),
-      inset 0 3px 0 0 var(--paper-shade);
+    box-shadow: var(--edge), inset 0 3px 0 0 var(--paper-shade);
   }
-  #bar img { width: 27px; height: 24px; object-fit: contain; image-rendering: pixelated; }
+  #bar img { width: 27px; height: 22px; object-fit: contain; image-rendering: pixelated; }
+  #badge {
+    position: absolute;
+    right: 6px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    background: var(--pink);
+    box-shadow: 0 0 0 2px var(--ink);
+    animation: blink 1s steps(2) infinite;
+  }
+
+  #gamehud {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    top: calc(env(safe-area-inset-top) + 10px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+  }
+  #gamehud span { padding: 6px 10px; background: var(--paper); box-shadow: var(--edge); }
+  #g-time { margin-right: auto; }
+  #gamehud button { padding: 6px 12px; border: 0; background: var(--paper); box-shadow: var(--edge), inset 0 -3px 0 0 var(--paper-shade); }
+
+  #cover {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #120e1e;
+    color: #fff;
+    font-size: 26px;
+  }
+
+  #toast {
+    position: fixed;
+    left: 50%;
+    top: 42%;
+    transform: translateX(-50%);
+    padding: 8px 14px;
+    background: var(--paper);
+    box-shadow: var(--edge);
+    font-size: 18px;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  #toast.show { animation: toast 1.5s steps(6) both; }
+  @keyframes toast { 0% { opacity: 0; } 10%, 80% { opacity: 1; } 100% { opacity: 0; } }
+
+  #panel {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px);
+    background: rgba(18, 14, 30, 0.55);
+    overflow-y: auto;
+  }
+  .box {
+    width: min(360px, 100%);
+    max-height: 100%;
+    overflow-y: auto;
+    background: var(--paper);
+    box-shadow: var(--edge), inset 0 -4px 0 0 var(--paper-shade);
+    padding: 0 16px 16px;
+    animation: grow 0.2s steps(4) both;
+  }
+  @keyframes grow { from { transform: scale(0.85); } to { transform: scale(1); } }
+  .box header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0 8px;
+    background: var(--paper);
+    font-size: 20px;
+    color: var(--pink);
+  }
+  #panel-close { width: 36px; height: 36px; border: 0; background: none; font-size: 22px; }
+  #panel-body { display: flex; flex-direction: column; gap: 10px; }
+  #panel-body p { margin: 0; line-height: 1.3; }
+  #panel-body .big { font-size: 18px; }
+  #panel-body .small { font-size: 13px; opacity: 0.75; margin-top: -4px; }
+  .pbtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 11px 12px;
+    border: 0;
+    background: #fff;
+    font-size: 16px;
+    box-shadow: var(--edge), inset 0 -4px 0 0 var(--paper-shade);
+    margin: 3px;
+  }
+  .pbtn img { width: 22px; height: 20px; object-fit: contain; image-rendering: pixelated; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .row .pbtn { flex: 1; }
+  .itemcard { display: flex; align-items: center; gap: 12px; padding: 8px; background: #fff; box-shadow: var(--edge); margin: 3px; font-size: 17px; }
+  .itemcard canvas { width: 64px; height: 60px; }
+  .wpreview { display: flex; justify-content: center; padding: 6px; background: linear-gradient(#c9edfb, #a2db74); box-shadow: var(--edge); margin: 3px; }
+  .wpreview canvas { width: 128px; height: 180px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 3px; }
+  .cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 2px;
+    border: 0;
+    background: #fff;
+    font-size: 11px;
+    box-shadow: var(--edge), inset 0 -3px 0 0 var(--paper-shade);
+  }
+  .cell canvas { width: 48px; height: 45px; }
+  .cell.on { background: #ffe3ec; box-shadow: var(--edge), inset 0 0 0 3px var(--pink); }
+  .cell.locked { opacity: 0.55; }
+  .cell b { font-size: 30px; line-height: 45px; font-weight: 500; }
+  canvas.photo { width: 100%; height: auto; box-shadow: var(--edge), 0 0 0 7px #c08a5a, 0 0 0 10px var(--ink); margin: 12px 10px 8px; width: calc(100% - 20px); }
+  .letter { padding: 10px 12px; background: #fff3c9; box-shadow: var(--edge); margin: 3px; }
+  .letter small { color: var(--pink); font-size: 12px; }
+  .letter p { margin-top: 4px !important; font-size: 16px; }
+
   #hint {
     position: fixed;
     left: 12px;
@@ -135,42 +300,41 @@
     top: calc(env(safe-area-inset-top) + 12px);
     padding: 10px 40px 11px 12px;
     background: var(--paper);
-    color: var(--ink);
     font-size: 14px;
     line-height: 1.3;
-    box-shadow: 0 -3px 0 0 var(--ink), 0 3px 0 0 var(--ink), -3px 0 0 0 var(--ink), 3px 0 0 0 var(--ink);
+    box-shadow: var(--edge);
   }
-  #hint[hidden] { display: none; }
   #hint b { color: var(--pink); font-weight: 500; }
-  #hint-close {
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 32px;
-    height: 32px;
-    border: 0;
-    background: none;
-    color: var(--ink);
-    font: inherit;
-    font-size: 18px;
-  }
+  #hint-close { position: absolute; right: 4px; top: 4px; width: 32px; height: 32px; border: 0; background: none; font-size: 18px; }
 </style>
 </head>
 <body>
 <canvas id="world"></canvas>
-<div id="bubble" aria-live="polite"><span id="bubble-text"></span></div>
+<div id="hud">
+  <div class="stat"><img id="hud-leaf" alt=""><i><b id="hunger-bar"></b></i></div>
+  <div class="stat"><img id="hud-heart" alt=""><i><b id="love-bar"></b></i></div>
+  <span id="hud-level">Nv. 1</span>
+</div>
+<div id="banner" hidden></div>
+<div id="bubble" aria-live="polite"><span id="bubble-from" hidden></span><span id="bubble-text"></span></div>
+<div id="toast"></div>
+<div id="gamehud" hidden><span id="g-score"></span><span id="g-time"></span><button id="g-quit">Kraj</button></div>
 <div id="hint" hidden>
   Stavi me na početni ekran! U Safariju dodirni <b>Podeli</b>, pa <b>Dodaj na početni ekran</b>.
   <button id="hint-close" aria-label="Zatvori">×</button>
 </div>
 <nav id="bar">
   <button id="btn-feed"><img alt=""><span>Nahrani</span></button>
-  <button id="btn-msg"><img alt=""><span>Poruka</span></button>
-  <button id="btn-hug"><img alt=""><span>Zagrli me</span></button>
-  <button id="btn-sleep"><img alt=""><span>Spavaj</span></button>
+  <button id="btn-msg"><img alt=""><span>Poruka</span><em id="badge" hidden></em></button>
+  <button id="btn-hug"><img alt=""><span>Zagrli</span></button>
+  <button id="btn-play"><img alt=""><span>Igraj</span></button>
+  <button id="btn-more"><img alt=""><span>Još</span></button>
 </nav>
+<div id="cover" hidden><span id="cover-text"></span></div>
+<div id="panel" hidden><div class="box"><header><span id="panel-title"></span><button id="panel-close" aria-label="Zatvori">×</button></header><div id="panel-body"></div></div></div>
 <script src="sprite.js"></script>
 <script src="messages.js"></script>
+<script src="audio.js"></script>
 <script src="game.js"></script>
 </body>
 </html>
