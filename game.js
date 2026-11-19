@@ -5,7 +5,7 @@
   var M = window.KoalaMessages;
   var Sfx = window.Sfx;
 
-  var BIRTHDAY = null;
+  var BIRTHDAY = { m: 5, d: 23 };
 
   var PHOTOS = [
     { src: "photos/ljuljaska.png", cap: "Naša ljuljaška. Koala i Zečić, zauvek." },
